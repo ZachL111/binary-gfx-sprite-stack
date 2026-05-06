@@ -1,0 +1,32 @@
+{
+  "index": 512,
+  "phase": 2,
+  "batch": 57,
+  "name": "binary-gfx-sprite-stack",
+  "planned_name": "binary-gfx-sprite-stack",
+  "language": "Dart",
+  "category": "Graphics",
+  "goal": "Design a Dart verification harness for sprite systems, covering graph analysis, node-edge fixtures, and failure-oriented tests.",
+  "repository_url": "https://github.com/ZachL111/binary-gfx-sprite-stack",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 177,
+    "risk_penalty": 7,
+    "latency_penalty": 3,
+    "weight_bonus": 6,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
