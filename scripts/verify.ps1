@@ -63,3 +63,9 @@ dart tests/test_policy.dart
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-binary-gfx-sprite-detail.ps1
 
 dart tests/test_domain_review.dart
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-binary-gfx-sprite-properties.ps1
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-binary-gfx-sprite-golden.ps1
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

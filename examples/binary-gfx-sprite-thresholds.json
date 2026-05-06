@@ -1,0 +1,17 @@
+{
+  "repo": "binary-gfx-sprite-stack",
+  "thresholds": {
+    "signal": 3,
+    "slack": 2,
+    "confidence": 1,
+    "drag": 3,
+    "ship": 176,
+    "watch": 118
+  },
+  "terms": [
+    "geometry span",
+    "atlas pressure",
+    "shader drift",
+    "render budget"
+  ]
+}
