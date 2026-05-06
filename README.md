@@ -1,68 +1,40 @@
 # binary-gfx-sprite-stack
 
-`binary-gfx-sprite-stack` is a focused Dart codebase around design a Dart verification harness for sprite systems, covering graph analysis, node-edge fixtures, and failure-oriented tests. It is meant to be easy to inspect, run, and extend without a hosted service.
+`binary-gfx-sprite-stack` explores graphics with a small Dart codebase and local fixtures. The technical goal is to design a Dart verification harness for sprite systems, covering graph analysis, node-edge fixtures, and failure-oriented tests.
 
-## Binary Gfx Sprite Stack Walkthrough
+## Problem It Tries To Make Smaller
 
-I would read the project from the outside in: command, fixture, model, then roadmap. That keeps the graphics idea grounded in files that can be checked locally.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Capabilities
+## Binary Gfx Sprite Stack Review Notes
 
-- Includes extended examples for render inputs, including `recovery` and `degraded`.
-- Documents stable output tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-- Adds a repository audit script that checks structure before running the language verifier.
+The first comparison I would make is `geometry span` against `shader drift` because it shows where the rule is most opinionated.
 
-## Reason For The Project
+## Working Pieces
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+- `fixtures/domain_review.csv` adds cases for geometry span and atlas pressure.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/binary-gfx-sprite-walkthrough.md` walks through the case spread.
+- The Dart code includes a review path for `geometry span` and `shader drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Where Things Live
+## Design Notes
 
-- `lib`: library code
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
+The core code exposes a scoring path and the added review layer uses `signal`, `slack`, `drag`, and `confidence`. The domain terms are `geometry span`, `atlas pressure`, `shader drift`, and `render budget`.
 
-## How It Is Put Together
+The Dart implementation avoids hidden state so fixture changes are easy to reason about.
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps geometry data, layout fixtures, and render inputs in one explicit decision path. The threshold is 177, with risk penalty 7, latency penalty 3, and weight bonus 6. The Dart project uses a small library and assertion script, avoiding package dependencies for verification.
-
-## Command Examples
+## Example Run
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Tests
 
-## Data Notes
+The check exercises the source code and the review fixture. `baseline` is the high score at 217; `edge` is the low score at 174.
 
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
+## Known Limits
 
-## Check The Work
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Tradeoffs
-
-The repository favors determinism over breadth. It does not pull live data, keep secrets, or depend on network access for verification.
-
-## Possible Extensions
-
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add one more graphics fixture that focuses on a malformed or borderline input.
-
-## Getting It Running
-
-The only required setup is the local Dart toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
+The repository is intentionally scoped to local checks. I would expand it by adding adversarial fixtures before adding features.
